@@ -1,2 +1,4 @@
-# study
-A collection of personal studies
+# frezr3e's study
+
+
+## 👁️‍🗨️ MySQL
