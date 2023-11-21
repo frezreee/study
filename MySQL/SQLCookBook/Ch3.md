@@ -113,3 +113,47 @@ where not exists (
                    from emp e
                    where d.deptno = e.deptno )
 ```
+
+<br>
+
+## 3.5 다른 테이블 행과 일치하지 않는 행 검색하기
+- 사원이 없는 부서를 찾고자 한다.
+- null에 대한 외부조인 (outer join) 및 필터를 사용한다.
+```sql
+select d.*
+from dept d left outer join emp e
+on (d.deptno = e.deptno)
+where e.deptno is null
+```
+
+<br>
+
+## 3.6 다른 조인을 방해하지 않고 쿼리에 조인 추가하기
+- 모든 사원명(ENAME), 근무 부서의 위치(LOC) 및 보너스 받은 날짜(RECEIVED)를 반환한다.
+- 사원별 보너스 지급 날짜를 추가하려 EMP_BONUS 테이블과 조인하면 모든 사원이 보너스를 받는 것은 아니므로 적은 행을 반환한다.
+```sql
+select e.ename, d.loc, eb.received
+from emp e, dept d, emp_bouns eb
+where e.deptno = d.deptno and e.empno = eb.empno
+```
+
+<br>
+- 외부 조인을 사용하여 원래 쿼리의 데이터 손실 없이 추가 정보를 얻는다.
+
+```sql
+select e.ename, d.loc, eb.received
+from emp e join dept d on (e.deptno = d.deptno)
+left join emp_bouns eb on (e.empno = eb.empno)
+order by 2
+```
+
+```sql
+select e.ename, d.loc, (select eb.received from emp_bouns eb where eb.empno = e.empno) as received
+from emp e, dept d
+where e.deptno = d.deptno
+order by 2
+```
+
+<br>
+
+## 3.7 두 테이블에 같은 데이터가 있는지 확인하기 
