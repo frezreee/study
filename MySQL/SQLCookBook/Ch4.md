@@ -264,3 +264,32 @@ where id not in ( select min(id)
 ```
 - 중복되는 값을 기준으로 그룹화한 다음, 집계 함수를 사용하여 보존할 킷값 하나만 선택한다.
 
+<br>
+
+## 4.17 다른 테이블에서 참조된 레코드 삭제하기
+- DEPT_ACCIDENT 테이블은 제조업체에서 발생하는 각 사고에 대해 하나의 행을 포함한다.
+- 각 행은 사고가 발생한 부서와 사고 유형을 기록한다.
+```sql
+create table dept_accidents
+(deptno        integer,
+ accident_name varchar(20))
+
+insert into dept_accidents values (10, 'BROKEN FOOT')
+insert into dept_accidents values (10, 'FLESH WOUND')
+insert into dept_accidents values (20, 'FIRE')
+insert into dept_accidents values (20, 'FIRE')
+insert into dept_accidents values (20, 'FLOOD')
+insert into dept_accidents values (30, 'BRUISED GLUTE')
+```
+
+<br>
+
+- 사고가 세 번 이상 발생한 부서에서 근무하는 사원 기록을 EMP 테이블에서 삭제한다.
+
+```sql
+delete from emp
+where deptno in ( select deptno
+                  from dept_accidents
+                  group by deptno
+                  having count(*) >= 3 )
+```
