@@ -9,3 +9,4 @@
 - [Ch2 : 쿼리 결과 정렬](https://github.com/frezreee/study/blob/main/MySQL/SQLCookBook/Ch2.md) <br>
 - [Ch3 : 다중 테이블 작업](https://github.com/frezreee/study/blob/main/MySQL/SQLCookBook/Ch3.md) <br>
 - [Ch4 : 삽입, 갱신, 삭제](https://github.com/frezreee/study/blob/main/MySQL/SQLCookBook/Ch4.md) <br> 
+- [Ch5 : 메타 데이터 쿼리](https://github.com/frezreee/study/blob/main/MySQL/SQLCookBook/Ch5.md)
